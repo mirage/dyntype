@@ -1,0 +1,10 @@
+S lib
+S pa_lib
+S lib_test
+
+B _build/**
+
+PKG camlp4
+PKG camlp4.quotations
+PKG type_conv
+PKG oUnit

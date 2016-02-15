@@ -116,9 +116,9 @@ let create tds : (loc * string * t) list =
     | <:ctyp< ( $tup:tp$ ) >> -> Tuple (List.map same_aux (list_of_ctyp tp []))
     | <:ctyp< list $ctyp$ >>  -> List (same_aux ctyp)
     | <:ctyp< array $ctyp$ >> -> Array (same_aux ctyp)
-    | <:ctyp< [< $variants$] >> 
+    | <:ctyp< [< $variants$] >>
     | <:ctyp< [> $variants$] >>
-    | <:ctyp< [= $variants$] >> 
+    | <:ctyp< [= $variants$] >>
     | <:ctyp< [$variants$] >> ->
       let kind = if is_polymorphic variants then `P else `N in
       Sum (kind, list_of_sum same_aux variants)

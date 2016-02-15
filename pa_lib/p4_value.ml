@@ -85,7 +85,7 @@ exception Type_not_supported of ctyp
 
 (* Conversion ML type -> Value.t *)
 module Value_of = struct
-  
+
   let env_type _loc names =
     let aux accu n = <:ctyp< $lid:n$ : list ( $lid:n$ * int64 ); $accu$ >> in
     <:ctyp< { $List.fold_left aux <:ctyp< >>  names$ } >>
@@ -105,7 +105,7 @@ module Value_of = struct
     <:expr< fun $lid:n$ -> do { id_seed.val := Int64.add id_seed.val 1L; id_seed.val }
     >>
 
-  let gen_binding _loc gen_id_fn n = 
+  let gen_binding _loc gen_id_fn n =
     <:binding< $lid:gen_id n$ = fun ~id_seed -> $gen_id_fn _loc n$ >>
 
   let id_seed_default _loc = Some <:expr< ref 0L >>,  <:ctyp< ref Int64.t >>
@@ -133,7 +133,7 @@ module Value_of = struct
 
     | <:ctyp< option $t$ >> ->
       let new_id, new_pid = new_id _loc in
-      <:expr< match $id$ with [ Some $new_pid$ -> V.Value $create names new_id t$ | None -> V.Null ] >> 
+      <:expr< match $id$ with [ Some $new_pid$ -> V.Value $create names new_id t$ | None -> V.Null ] >>
 
     | <:ctyp< $tup:tp$ >> ->
       let ctyps = list_of_ctyp tp [] in
@@ -224,7 +224,7 @@ module Value_of = struct
       >> in
       match id_seed with
       | None   -> <:expr< fun ~id_seed -> $body$ >>
-      | Some d -> <:expr< fun ?(id_seed = $d$) -> $body$ >> in 
+      | Some d -> <:expr< fun ?(id_seed = $d$) -> $body$ >> in
     let value_of_fns = List.map value_of_fn ids in
     expr_tuple_of_list _loc value_of_fns
 
@@ -342,7 +342,7 @@ module Of_value = struct
         List.map2 (fun pid (n, ctyp) ->
           <:binding< $pid$ = try List.assoc $str:n$ $nid$ with [ $runtime_exn_error nid ("Looking for key "^n)$ ] >>
           ) pids fields in
-      <:expr< match $id$ with 
+      <:expr< match $id$ with
         [ V.Dict $npid$ -> let $biAnd_of_list bindings$ in object $crSem_of_list exprs$ end | $runtime_error id "Dict"$ ]
       >>
 
@@ -390,7 +390,7 @@ module Of_value = struct
         else
           let __value0__ = $default_value _loc ctyp$ in
           let __env__  = $replace_env _loc names name$ in
-          let __value1__ = $create names nid2 ctyp$ in 
+          let __value1__ = $create names nid2 ctyp$ in
           let () = $set_value _loc ctyp$ in
           __value0__
       | V.Ext (n, $npid2$) -> $create names nid2 ctyp$

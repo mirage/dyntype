@@ -1,8 +1,9 @@
 # OASIS_START
-# DO NOT EDIT (digest: 17b203030e36f4413e8c2a2ab238b2c7)
-# Ignore VCS directories, you can use the same kind of rule outside 
-# OASIS_START/STOP if you want to exclude directories that contains 
+# DO NOT EDIT (digest: 325b0e4794a3e2fb8814a7cbd38aae9b)
+# Ignore VCS directories, you can use the same kind of rule outside
+# OASIS_START/STOP if you want to exclude directories that contains
 # useless stuff for the build process
+true: annot, bin_annot
 <**/.svn>: -traverse
 <**/.svn>: not_hygienic
 ".bzr": -traverse
@@ -17,7 +18,7 @@
 "lib/dyntype.cmxs": use_dyntype
 "lib/type.cmx": for-pack(Dyntype)
 "lib/value.cmx": for-pack(Dyntype)
-<lib/*.ml{,i}>: pkg_type_conv
+<lib/*.ml{,i,y}>: pkg_type_conv
 # Library pa_dyntype
 "pa_lib/pa_dyntype.cmxs": use_pa_dyntype
 "pa_lib/p4_helpers.cmx": for-pack(Pa_dyntype)
@@ -25,16 +26,16 @@
 "pa_lib/p4_value.cmx": for-pack(Pa_dyntype)
 "pa_lib/pa_type.cmx": for-pack(Pa_dyntype)
 "pa_lib/pa_value.cmx": for-pack(Pa_dyntype)
-<pa_lib/*.ml{,i}>: use_dyntype
-<pa_lib/*.ml{,i}>: pkg_type_conv
-<pa_lib/*.ml{,i}>: pkg_camlp4
-<pa_lib/*.ml{,i}>: pkg_camlp4.quotations
+<pa_lib/*.ml{,i,y}>: pkg_camlp4
+<pa_lib/*.ml{,i,y}>: pkg_camlp4.quotations
+<pa_lib/*.ml{,i,y}>: pkg_type_conv
+<pa_lib/*.ml{,i,y}>: use_dyntype
 # Executable suite
-"lib_test/suite.byte": use_dyntype
 "lib_test/suite.byte": pkg_oUnit
 "lib_test/suite.byte": pkg_type_conv
-<lib_test/*.ml{,i}>: use_dyntype
-<lib_test/*.ml{,i}>: pkg_oUnit
-<lib_test/*.ml{,i}>: pkg_type_conv
+"lib_test/suite.byte": use_dyntype
+<lib_test/*.ml{,i,y}>: pkg_oUnit
+<lib_test/*.ml{,i,y}>: pkg_type_conv
+<lib_test/*.ml{,i,y}>: use_dyntype
 # OASIS_STOP
 <**/*.ml{,i}>: syntax_camlp4o
