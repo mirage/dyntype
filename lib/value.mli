@@ -34,11 +34,12 @@ type t =
 
 (** {2 Utility functions} *)
 
-(** [free_vars v] returns the free variables inside [v]. If [v] is obtained using [value_of_t] then this
-  list should be empty *)
+(** [free_vars v] returns the free variables inside [v]. If [v] is obtained
+    using [value_of_t] then this list should be empty *)
 val free_vars : t -> (string * int64) list
 
-(** Checks whether two values are equal (this looks for equivalence modulo eta-conversion on variable indices) *)
+(** Checks whether two values are equal (this looks for equivalence modulo
+    eta-conversion on variable indices) *)
 val equal : t -> t -> bool
 
 (** [to_string v] pretty-prints the value [v] *)
@@ -47,6 +48,6 @@ val to_string : t -> string
 (** Exception raised by {!of_string} *)
 exception Parse_error of string
 
-(** [of_string str] returns the value which had been pretty-printed to [str]. Raises {!Parse_error} if [str] has
-  not a valid format. *)
+(** [of_string str] returns the value which had been pretty-printed to [str].
+    Raises {!Parse_error} if [str] has not a valid format. *)
 val of_string : string -> t

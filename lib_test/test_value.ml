@@ -20,10 +20,10 @@ and t = {
   f3: string;
   f4: int64;
   f5: char array;
-} and tu = ( int  * f * pp ) 
+} and tu = ( int  * f * pp )
 with value
 
-type o = < x: f; y: string; z: (int -> string) > 
+type o = < x: f; y: string; z: (int -> string) >
 with value
 
 open OUnit
@@ -76,9 +76,9 @@ and pp () =
 and t () = if Random.int 10 > 1 then t1 else { t1 = int (); t2 = string (); t3 = x () }
 
 and x () = if Random.int 10 > 1 then x1 else { x1 = array t; x2 = int64 () }
-    
+
 and f () = { f1 = int (); f2 = list string; f3 = string (); f4 = int64 (); f5 = array char }
-    
+
 and tu ()  = ( int (), f (), pp ())
 
 let o () : o = object method x = f () method y = string () method z = (fun i -> string () ^ string_of_int i) end
@@ -91,7 +91,7 @@ let check n f g x =
     Printf.printf "%s(v2): %s\n%!" n (Value.to_string v2);
   end;
   ("EQ " ^ n) @? (v1 = v2)
-  
+
 let check_syntax n f g x =
   ("EQ " ^ n) @? ( ignore (f (g (f x))); true )
 

@@ -47,21 +47,24 @@ val free_vars : t -> string list
 (** [foreigns t] returns all the type variables appearing in [t]. *)
 val foreigns : t -> string list
 
-(** [unroll env t] replaces every type appearing in [t] by its type value defined in [env]. *)
+(** [unroll env t] replaces every type appearing in [t] by its type value
+    defined in [env]. *)
 val unroll : (string * t) list -> t -> t
 
 
 (** {2 Sub-typing} *)
 
-(** [is_subtype_of s t] checks whether [s] is a sub-type of [t]. Sub-typing relation is based on
-  naming. Basically, [s] is a sub-type of [t] if (i) named attributes have either compatible types
-  (ii) or some fields/methods defined in [t] do not appear in [s]. *)
+(** [is_subtype_of s t] checks whether [s] is a sub-type of [t]. Sub-typing
+    relation is based on naming. Basically, [s] is a sub-type of [t] if
+    (i) named attributes have either compatible types
+    (ii) or some fields/methods defined in [t] do not appear in [s]. *)
 val is_subtype_of : t -> t -> bool
 
 (** [s <: t] is a short-cut for [is_subtype_of s t] *)
 val ( <: ) : t -> t -> bool
 
-(** Returns the more recent failing sub-type relation tested by [(<:)] or [is_subtype_of] *)
+(** Returns the more recent failing sub-type relation tested by [(<:)] or
+    [is_subtype_of] *)
 val string_of_last_type_error : unit -> string
 
 (** {2 Pretty-printing} *)
@@ -73,6 +76,6 @@ val to_string : t -> string
 (** Exception that may be raised by [!of_string] *)
 exception Parse_error of string
 
-(** [of_string str] returns the type [t] corresponding to the pretty-printed string [str]. Raises [!Parse_error]
-  if is not a valid string *)
+(** [of_string str] returns the type [t] corresponding to the pretty-printed
+    string [str]. Raises [!Parse_error] if is not a valid string *)
 val of_string : string -> t

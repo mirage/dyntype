@@ -76,7 +76,7 @@ let equal x y =
   aux [] x y
 
 let rec to_string t = match t with
-  | Unit       -> "U"                                                           
+  | Unit       -> "U"
   | Null       -> "N"
   | Value t    -> sprintf "?%s" (to_string t)
   | Int i      -> sprintf "I(%Li)" i
@@ -112,7 +112,7 @@ let split_par ?limit c s =
     match limit with
     | Some i when n>=i -> [s]
     | _ ->
-      try 
+      try
         let i = index_par c s in
         let h = String.sub s 0 i in
         let t =

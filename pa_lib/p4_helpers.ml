@@ -21,7 +21,7 @@ let expr_list_of_list _loc exprs =
   match List.rev exprs with
   | []   -> <:expr< [] >>
   | h::t ->
-    List.fold_left (fun accu x -> <:expr< [ $x$ :: $accu$ ] >>) <:expr< [ $h$ ] >> t 
+    List.fold_left (fun accu x -> <:expr< [ $x$ :: $accu$ ] >>) <:expr< [ $h$ ] >> t
 
 let patt_list_of_list _loc patts =
   match List.rev patts with

@@ -32,20 +32,18 @@ type t =
   | Ext of string * t
 
 (* Check whether a struct is mutable *)
-let is_mutable t =
-  let rec aux = function
-    | Unit | Int _ | Bool | Float | Char | String -> false
-    | List t    -> aux t
-    | Array t   -> aux t
-    | Tuple tl  -> List.exists aux tl
-    | Dict(_,tl)-> List.exists (fun (_,m,t) -> m = `RW || aux t) tl
-    | Sum (_,tl)-> List.exists (fun (_,tl) -> List.exists aux tl) tl
-    | Option t  -> aux t
-    | Rec (n,t) -> aux t
-    | Var n     -> false
-    | Arrow _   -> false
-    | Ext (n,t) -> aux t in
-  aux t
+let rec is_mutable = function
+  | Unit | Int _ | Bool | Float | Char | String -> false
+  | List t    -> is_mutable t
+  | Array t   -> is_mutable t
+  | Tuple tl  -> List.exists is_mutable tl
+  | Dict(_,tl)-> List.exists (fun (_,m,t) -> m = `RW || is_mutable t) tl
+  | Sum (_,tl)-> List.exists (fun (_,tl) -> List.exists is_mutable tl) tl
+  | Option t  -> is_mutable t
+  | Rec (n,t) -> is_mutable t
+  | Var n     -> false
+  | Arrow _   -> false
+  | Ext (n,t) -> is_mutable t
 
 (* If there are still some `Var v, then the type is recursive for the type v *)
 let free_vars t =
@@ -112,7 +110,7 @@ let unroll env t =
 
 let map_strings sep fn l = String.concat sep (List.map fn l)
 
-let rec to_string t = match t with
+let rec to_string = function
   | Unit       -> "U"
   | Int x      -> "I" ^ (match x with None -> "" | Some n -> sprintf "%02d" n)
   | Bool       -> "B"
